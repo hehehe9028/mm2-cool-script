@@ -1,0 +1,108 @@
+-- Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "KeySystem"
+gui.ResetOnSpawn = false
+
+-- Main Frame
+local popup = Instance.new("Frame")
+popup.Size = UDim2.new(0, 320, 0, 250)
+popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+popup.AnchorPoint = Vector2.new(0.5, 0.5)
+popup.BackgroundColor3 = Color3.new(1, 1, 1)
+popup.BorderSizePixel = 0
+popup.Parent = gui
+Instance.new("UICorner", popup).CornerRadius = UDim.new(0, 10)
+
+-- Title
+local title = Instance.new("TextLabel", popup)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0, 5)
+title.BackgroundTransparency = 1
+title.Text = "Key System - Made by Crazy"
+title.TextColor3 = Color3.new(0, 0, 0)
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+
+-- Hint
+local hint = Instance.new("TextLabel", popup)
+hint.Size = UDim2.new(1, -20, 0, 30)
+hint.Position = UDim2.new(0, 10, 0, 45)
+hint.BackgroundTransparency = 1
+hint.Text = "Enter your key or get it from Discord:"
+hint.TextColor3 = Color3.new(0, 0, 0)
+hint.Font = Enum.Font.Gotham
+hint.TextScaled = true
+
+-- Key Input
+local input = Instance.new("TextBox", popup)
+input.Size = UDim2.new(0.8, 0, 0, 40)
+input.Position = UDim2.new(0.1, 0, 0, 85)
+input.PlaceholderText = "Enter Key Here"
+input.Text = ""
+input.Font = Enum.Font.Gotham
+input.TextScaled = true
+input.TextColor3 = Color3.new(0, 0, 0)
+input.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+Instance.new("UICorner", input).CornerRadius = UDim.new(0, 6)
+
+-- Submit Button
+local submit = Instance.new("TextButton", popup)
+submit.Size = UDim2.new(0.6, 0, 0, 40)
+submit.Position = UDim2.new(0.2, 0, 0, 135)
+submit.Text = "Submit"
+submit.Font = Enum.Font.GothamBold
+submit.TextScaled = true
+submit.TextColor3 = Color3.new(1, 1, 1)
+submit.BackgroundColor3 = Color3.new(0, 0, 0)
+Instance.new("UICorner", submit).CornerRadius = UDim.new(0, 6)
+
+-- Get Key Button
+local getKey = Instance.new("TextButton", popup)
+getKey.Size = UDim2.new(0.6, 0, 0, 35)
+getKey.Position = UDim2.new(0.2, 0, 0, 185)
+getKey.Text = "Get Key"
+getKey.Font = Enum.Font.GothamBold
+getKey.TextScaled = true
+getKey.TextColor3 = Color3.new(1, 1, 1)
+getKey.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Instance.new("UICorner", getKey).CornerRadius = UDim.new(0, 6)
+
+-- Clipboard copy (Get Key button)
+local success, Clipboard = pcall(function()
+	return setclipboard
+end)
+
+getKey.MouseButton1Click:Connect(function()
+	if success and Clipboard then
+		setclipboard("https://discord.gg/kjEn8eHP")
+		getKey.Text = "Copied!"
+		wait(2)
+		getKey.Text = "Get Key"
+	else
+		getKey.Text = "Not Supported"
+		wait(2)
+		getKey.Text = "Get Key"
+	end
+end)
+
+-- Key check
+submit.MouseButton1Click:Connect(function()
+	local key = input.Text
+	if key == "crazy" then
+		-- Success: Update GUI instead of hiding
+		title.Text = "✅ Thanks for joining the Discord!"
+		hint.Text = "Loading script, please wait..."
+		input.Visible = false
+		submit.Visible = false
+		getKey.Visible = false
+
+		wait(5)
+		gui:Destroy()
+		loadstring(game:HttpGet("https://rawscripts.net/raw/Murder-Mystery-2-GhostHub-MM-13413"))()
+	else
+		input.Text = ""
+		input.PlaceholderText = "Invalid Key!"
+	end
+end)
