@@ -76,7 +76,7 @@ end)
 
 getKey.MouseButton1Click:Connect(function()
 	if success and Clipboard then
-		setclipboard("https://discord.gg/kjEn8eHP")
+		setclipboard("https://discord.gg/4myWDtW8yj")
 		getKey.Text = "Copied!"
 		wait(2)
 		getKey.Text = "Get Key"
