@@ -90,7 +90,7 @@ end)
 -- Key check
 submit.MouseButton1Click:Connect(function()
 	local key = input.Text
-	if key == "crazy" then
+	if key == "MM2ARA" then
 		-- Success: Update GUI instead of hiding
 		title.Text = "✅ Thanks for joining the Discord!"
 		hint.Text = "Loading script, please wait..."
